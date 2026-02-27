@@ -1,0 +1,5 @@
+{
+  "name": "Remix: Smart Recharge BD",
+  "description": "Mobile recharge web app for Bangladesh with Supabase backend, supporting GP, Robi/Airtel, Banglalink, and Teletalk.",
+  "requestFramePermissions": []
+}
