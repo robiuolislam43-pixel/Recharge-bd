@@ -31,10 +31,16 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        setUser(session?.user ?? null);
+      })
+      .catch((err) => {
+        console.error('Session fetch error:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return null;
@@ -138,9 +144,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
-        <AnimatePresence mode="wait">
-          {children}
-        </AnimatePresence>
+        {children}
       </main>
 
       <footer className="bg-slate-900 text-white py-20">
@@ -227,19 +231,23 @@ export default function App() {
         }}
       />
       
-      <AnimatePresence>
-        {showSplash && <SplashScreen />}
+      <AnimatePresence mode="wait">
+        {showSplash ? (
+          <SplashScreen key="splash" />
+        ) : (
+          <Layout>
+            <Routes>
+              <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path="/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+              <Route path="/history" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
+              <Route path="/login" element={<UserLogin />} />
+              <Route path="/signup" element={<UserSignup />} />
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            </Routes>
+          </Layout>
+        )}
       </AnimatePresence>
-
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Layout><Home /></Layout></ProtectedRoute>} />
-        <Route path="/payment" element={<ProtectedRoute><Layout><Payment /></Layout></ProtectedRoute>} />
-        <Route path="/history" element={<ProtectedRoute><Layout><OrderHistory /></Layout></ProtectedRoute>} />
-        <Route path="/login" element={<Layout><UserLogin /></Layout>} />
-        <Route path="/signup" element={<Layout><UserSignup /></Layout>} />
-        <Route path="/admin" element={<Layout><AdminLogin /></Layout>} />
-        <Route path="/admin/dashboard" element={<Layout><AdminDashboard /></Layout>} />
-      </Routes>
     </Router>
   );
 }
