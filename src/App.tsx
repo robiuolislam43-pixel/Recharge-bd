@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Smartphone, History as HistoryIcon, ShieldAlert, LogIn, UserPlus, LogOut, User, Activity as ActivityIcon } from 'lucide-react';
 import { supabase } from './lib/supabase';
@@ -13,6 +13,28 @@ import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
 import UserLogin from './pages/auth/Login';
 import UserSignup from './pages/auth/Signup';
+import SplashScreen from './components/SplashScreen';
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return null;
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+}
 
 function Layout({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any>(null);
@@ -38,7 +60,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/';
+    window.location.href = '/login';
   };
 
   return (
@@ -167,6 +189,15 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Router>
       <Toaster 
@@ -178,10 +209,15 @@ export default function App() {
           }
         }}
       />
+      
+      <AnimatePresence>
+        {showSplash && <SplashScreen />}
+      </AnimatePresence>
+
       <Routes>
-        <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/payment" element={<Layout><Payment /></Layout>} />
-        <Route path="/history" element={<Layout><OrderHistory /></Layout>} />
+        <Route path="/" element={<ProtectedRoute><Layout><Home /></Layout></ProtectedRoute>} />
+        <Route path="/payment" element={<ProtectedRoute><Layout><Payment /></Layout></ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute><Layout><OrderHistory /></Layout></ProtectedRoute>} />
         <Route path="/login" element={<Layout><UserLogin /></Layout>} />
         <Route path="/signup" element={<Layout><UserSignup /></Layout>} />
         <Route path="/admin" element={<Layout><AdminLogin /></Layout>} />
