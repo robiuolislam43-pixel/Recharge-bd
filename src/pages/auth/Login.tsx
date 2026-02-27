@@ -28,7 +28,10 @@ export default function UserLogin() {
 
       if (data.user) {
         toast.success('লগইন সফল হয়েছে!');
-        navigate('/');
+        // Small delay to ensure session is saved in storage
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 500);
       }
     } catch (error: any) {
       toast.error('লগইন ব্যর্থ হয়েছে: ' + error.message);

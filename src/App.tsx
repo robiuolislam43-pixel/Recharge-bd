@@ -31,6 +31,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   useEffect(() => {
+    // Initial session check
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
         setUser(session?.user ?? null);
@@ -41,9 +42,25 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
       .finally(() => {
         setLoading(false);
       });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -210,6 +227,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const isConfigured = import.meta.env.VITE_SUPABASE_URL && 
+                      import.meta.env.VITE_SUPABASE_URL !== 'YOUR_SUPABASE_URL';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -217,6 +236,25 @@ export default function App() {
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
+
+  if (!isConfigured && !showSplash) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6 text-center">
+        <div className="max-w-md space-y-6">
+          <div className="w-20 h-20 bg-red-100 rounded-3xl flex items-center justify-center mx-auto">
+            <ShieldAlert className="w-10 h-10 text-red-600" />
+          </div>
+          <h1 className="text-2xl font-black text-slate-900">Supabase Not Configured</h1>
+          <p className="text-slate-500 font-medium leading-relaxed">
+            Please add your <code className="bg-slate-100 px-2 py-1 rounded text-red-600">VITE_SUPABASE_URL</code> and <code className="bg-slate-100 px-2 py-1 rounded text-red-600">VITE_SUPABASE_ANON_KEY</code> to your environment variables.
+          </p>
+          <Button onClick={() => window.location.reload()} className="bg-slate-900 text-white rounded-2xl h-14 px-8 font-black uppercase tracking-widest">
+            Check Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Router>

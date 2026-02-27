@@ -27,8 +27,15 @@ export default function UserSignup() {
       if (error) throw error;
 
       if (data.user) {
-        toast.success('অ্যাকাউন্ট তৈরি সফল হয়েছে! অনুগ্রহ করে আপনার ইমেইল চেক করুন।');
-        navigate('/login');
+        if (data.session) {
+          toast.success('অ্যাকাউন্ট তৈরি এবং লগইন সফল হয়েছে!');
+          setTimeout(() => {
+            navigate('/', { replace: true });
+          }, 500);
+        } else {
+          toast.success('অ্যাকাউন্ট তৈরি সফল হয়েছে! অনুগ্রহ করে আপনার ইমেইল চেক করুন।');
+          navigate('/login');
+        }
       }
     } catch (error: any) {
       toast.error('অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে: ' + error.message);
