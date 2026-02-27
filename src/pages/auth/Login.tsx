@@ -46,8 +46,14 @@ export default function UserLogin() {
       <Card className="w-full max-w-md border-none shadow-2xl bg-white overflow-hidden">
         <div className="h-2 bg-gradient-to-r from-emerald-400 to-teal-500" />
         <CardHeader className="text-center space-y-4 pt-10">
-          <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto mb-2 -rotate-3 hover:rotate-0 transition-transform duration-300">
-            <LogIn className="w-10 h-10 text-emerald-600" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20">
+              <Smartphone className="h-8 w-8 text-white" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-black text-2xl tracking-tighter leading-none text-slate-900">সহজ রিচার্জ</span>
+              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
+            </div>
           </div>
           <div className="space-y-1">
             <CardTitle className="text-3xl font-black tracking-tight text-slate-900">লগইন করুন</CardTitle>

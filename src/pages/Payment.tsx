@@ -129,31 +129,36 @@ export default function Payment() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-4xl mx-auto space-y-8"
+      className="max-w-6xl mx-auto space-y-10 pb-20"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-sm font-bold text-slate-500 hover:text-emerald-600 transition-colors bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100"
+          className="group flex items-center text-sm font-black text-slate-500 hover:text-emerald-600 transition-all bg-white px-6 py-3 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 hover:-translate-x-1"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" /> ফিরে যান
+          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> ফিরে যান
         </button>
-        <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100">
-          <ShieldCheck className="w-4 h-4" />
-          <span className="text-xs font-bold uppercase tracking-wider">নিরাপদ পেমেন্ট গেটওয়ে</span>
+        <div className="flex items-center gap-3 text-emerald-600 bg-emerald-50 px-6 py-3 rounded-2xl border border-emerald-100 shadow-lg shadow-emerald-100/50">
+          <ShieldCheck className="w-5 h-5" />
+          <span className="text-xs font-black uppercase tracking-[0.2em]">নিরাপদ পেমেন্ট গেটওয়ে</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <div className="lg:col-span-3">
-          <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white overflow-hidden">
-            <div className="h-2 bg-gradient-to-r from-emerald-400 to-teal-600" />
-            <CardHeader>
-              <CardTitle className="text-xl font-black">পেমেন্ট সম্পন্ন করুন</CardTitle>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-7">
+          <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white rounded-[2.5rem] overflow-hidden">
+            <div className="h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600" />
+            <CardHeader className="p-10 pb-0">
+              <CardTitle className="text-3xl font-black flex items-center gap-4">
+                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center">
+                  <CreditCard className="w-6 h-6 text-emerald-600" />
+                </div>
+                পেমেন্ট সম্পন্ন করুন
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-8 p-8">
+            <CardContent className="p-10 space-y-10">
               <div className="space-y-4">
-                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">পেমেন্ট মেথড সিলেক্ট করুন</label>
+                <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">পেমেন্ট মেথড সিলেক্ট করুন</label>
                 <div className="grid grid-cols-3 gap-4">
                   {PAYMENT_METHODS.map((method) => (
                     <button
@@ -161,10 +166,10 @@ export default function Payment() {
                       type="button"
                       onClick={() => setPaymentMethod(method.id)}
                       className={cn(
-                        "group relative py-6 px-4 rounded-2xl font-black text-sm transition-all border-2 overflow-hidden",
+                        "group relative py-8 px-4 rounded-3xl font-black text-xs uppercase tracking-widest transition-all border-2 overflow-hidden",
                         paymentMethod === method.id
-                          ? `border-slate-900 ${method.color} text-white shadow-xl`
-                          : "border-slate-50 bg-slate-50 text-slate-600 hover:border-slate-200"
+                          ? `border-slate-900 ${method.color} text-white shadow-2xl shadow-slate-900/20 -translate-y-1`
+                          : "border-slate-50 bg-slate-50 text-slate-400 hover:border-slate-200 hover:bg-white"
                       )}
                     >
                       <div className="relative z-10">{method.label}</div>
@@ -182,55 +187,59 @@ export default function Payment() {
               <AnimatePresence mode="wait">
                 {paymentMethod && (
                   <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="space-y-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="space-y-10"
                   >
-                    <div className={cn("p-6 rounded-2xl border-2 border-dashed space-y-4", 
+                    <div className={cn("p-8 rounded-[2.5rem] border-4 border-dashed space-y-6", 
                       PAYMENT_METHODS.find(m => m.id === paymentMethod)?.bgColor,
-                      "border-slate-200"
+                      "border-slate-100"
                     )}>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                          <Info className="w-5 h-5 text-slate-900" />
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-xl shadow-slate-200/50">
+                          <Info className="w-6 h-6 text-slate-900" />
                         </div>
-                        <h4 className="font-black text-slate-900">নির্দেশনা:</h4>
+                        <h4 className="text-lg font-black text-slate-900 uppercase tracking-widest">নির্দেশনা:</h4>
                       </div>
-                      <ol className="space-y-3 text-sm font-bold text-slate-700">
-                        <li className="flex gap-3">
-                          <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">১</span>
-                          আমাদের <strong>{paymentMethod}</strong> নাম্বারে <strong>৳{state.amount}</strong> সেন্ড মানি করুন: <br />
-                          <span className="text-lg font-black text-slate-900 mt-1 block tracking-widest">01700-000000</span>
-                        </li>
-                        <li className="flex gap-3">
-                          <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">২</span>
-                          পেমেন্ট করার পর ফিরতি মেসেজ থেকে <strong>Transaction ID</strong> টি কপি করুন।
-                        </li>
-                        <li className="flex gap-3">
-                          <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">৩</span>
-                          নিচের বক্সে আইডিটি দিয়ে সাবমিট করুন।
-                        </li>
+                      <ol className="space-y-4">
+                        {[
+                          { step: 1, text: <>আমাদের <strong>{paymentMethod}</strong> নাম্বারে <strong>৳{state.amount}</strong> সেন্ড মানি করুন:</>, extra: <span className="text-3xl font-black text-slate-900 mt-2 block tracking-tighter">01700-000000</span> },
+                          { step: 2, text: <>পেমেন্ট করার পর ফিরতি মেসেজ থেকে <strong>Transaction ID</strong> টি কপি করুন।</> },
+                          { step: 3, text: <>নিচের বক্সে আইডিটি দিয়ে সাবমিট করুন।</> }
+                        ].map((item, i) => (
+                          <li key={i} className="flex gap-4">
+                            <span className="w-8 h-8 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-lg shadow-slate-200/50 font-black text-slate-900">{item.step}</span>
+                            <div className="text-sm font-bold text-slate-600 leading-relaxed pt-1">
+                              {item.text}
+                              {item.extra}
+                            </div>
+                          </li>
+                        ))}
                       </ol>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="space-y-3">
-                        <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Transaction ID</label>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                      <div className="space-y-4">
+                        <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Transaction ID</label>
                         <div className="relative group">
-                          <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                          <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                            <CreditCard className="h-7 w-7 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                            <div className="h-8 w-px bg-slate-100" />
+                          </div>
                           <Input
                             placeholder="যেমন: 8N2K9X1M"
                             value={transactionId}
                             onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                            className="pl-14 h-16 text-xl font-black border-slate-100 bg-slate-50/50 focus:bg-white rounded-2xl uppercase tracking-widest"
+                            className="pl-20 h-20 text-2xl font-black border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 rounded-3xl transition-all placeholder:text-slate-200 uppercase tracking-widest"
                             required
                           />
                         </div>
                       </div>
 
-                      <Button type="submit" className="w-full h-16 bg-slate-900 hover:bg-black text-white rounded-2xl text-xl font-black shadow-xl shadow-slate-200 transition-all hover:-translate-y-1" disabled={loading}>
+                      <Button type="submit" className="w-full h-20 bg-slate-900 hover:bg-black text-white rounded-3xl text-xl font-black shadow-2xl shadow-slate-900/20 transition-all hover:-translate-y-1 group" disabled={loading}>
                         {loading ? 'প্রসেসিং হচ্ছে...' : 'ভেরিফাই ও সাবমিট'}
+                        {!loading && <CheckCircle2 className="ml-3 h-6 w-6 group-hover:scale-110 transition-transform" />}
                       </Button>
                     </form>
                   </motion.div>
@@ -240,54 +249,54 @@ export default function Payment() {
           </Card>
         </div>
 
-        <div className="lg:col-span-2">
-          <Card className="border-none shadow-xl bg-slate-900 text-white overflow-hidden sticky top-24">
-            <CardHeader className="border-b border-white/10">
-              <CardTitle className="text-lg font-bold">অর্ডারের সারসংক্ষেপ</CardTitle>
+        <div className="lg:col-span-5">
+          <Card className="border-none shadow-2xl bg-slate-900 text-white rounded-[2.5rem] overflow-hidden sticky top-24">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full -mr-20 -mt-20 blur-3xl" />
+            <CardHeader className="p-10 border-b border-white/5">
+              <CardTitle className="text-xl font-black uppercase tracking-widest text-slate-400">অর্ডারের সারসংক্ষেপ</CardTitle>
             </CardHeader>
-            <CardContent className="p-8 space-y-6">
-              <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg p-2">
+            <CardContent className="p-10 space-y-10 relative z-10">
+              <div className="flex items-center gap-6 p-6 bg-white/5 rounded-[2rem] border border-white/10">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl p-3">
                   <img 
                     src={OPERATOR_DATA[state.operator as Operator]?.logo} 
                     alt={state.operator} 
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-lg font-black text-emerald-600">${state.operator[0]}</span>`;
+                      (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-2xl font-black text-emerald-600">${state.operator[0]}</span>`;
                     }}
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest">মোবাইল নাম্বার</p>
-                  <p className="text-xl font-black">{state.mobileNumber}</p>
+                  <p className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.3em] mb-1">মোবাইল নাম্বার</p>
+                  <p className="text-3xl font-black tracking-tighter">{state.mobileNumber}</p>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-white/50 font-bold uppercase tracking-wider">অপারেটর</span>
-                  <span className="font-black bg-white/10 px-3 py-1 rounded-lg">{state.operator}</span>
-                </div>
-                {state.packageName && (
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-white/50 font-bold uppercase tracking-wider">প্যাকেজ</span>
-                    <span className="font-black text-emerald-400">{state.packageName}</span>
+              <div className="space-y-6">
+                {[
+                  { label: 'অপারেটর', value: state.operator, highlight: false },
+                  { label: 'প্যাকেজ', value: state.packageName || 'সাধারণ রিচার্জ', highlight: true },
+                  { label: 'টাইপ', value: state.type, highlight: false }
+                ].map((item, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest">{item.label}</span>
+                    <span className={cn(
+                      "font-black text-sm uppercase tracking-widest px-4 py-2 rounded-xl",
+                      item.highlight ? "text-emerald-400 bg-emerald-500/10" : "text-white bg-white/5"
+                    )}>{item.value}</span>
                   </div>
-                )}
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-white/50 font-bold uppercase tracking-wider">টাইপ</span>
-                  <span className="font-black">{state.type}</span>
-                </div>
+                ))}
               </div>
 
-              <div className="pt-6 border-t border-white/10 flex justify-between items-end">
+              <div className="pt-10 border-t border-white/5 flex justify-between items-end">
                 <div>
-                  <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-1">মোট পরিমাণ</p>
-                  <p className="text-4xl font-black text-emerald-400">৳{state.amount}</p>
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2">মোট পরিমাণ</p>
+                  <p className="text-6xl font-black text-emerald-400 tracking-tighter">৳{state.amount}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">ভ্যাট অন্তর্ভুক্ত</p>
+                  <p className="text-[10px] font-black text-white/20 uppercase tracking-widest">ভ্যাট অন্তর্ভুক্ত</p>
                 </div>
               </div>
             </CardContent>

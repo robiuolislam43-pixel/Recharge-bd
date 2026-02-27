@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { Smartphone, History as HistoryIcon, ShieldAlert, LogIn, UserPlus, LogOut, User, Activity as ActivityIcon } from 'lucide-react';
+import { Smartphone, History as HistoryIcon, ShieldAlert, LogIn, UserPlus, LogOut, User, Activity as ActivityIcon, DollarSign } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from './components/ui/button';
@@ -14,6 +14,16 @@ import AdminDashboard from './pages/admin/Dashboard';
 import UserLogin from './pages/auth/Login';
 import UserSignup from './pages/auth/Signup';
 import SplashScreen from './components/SplashScreen';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any>(null);
@@ -69,38 +79,41 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-2xl shadow-slate-900/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                <Smartphone className="h-6 w-6 text-emerald-400" />
+              <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-2xl shadow-slate-900/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Smartphone className="h-6 w-6 text-emerald-400 relative z-10" />
               </div>
               <div className="flex flex-col">
-                <span className="font-black text-xl tracking-tighter text-slate-900 leading-none">স্মার্ট রিচার্জ</span>
-                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] leading-none mt-1">Smart Recharge</span>
+                <span className="font-black text-xl tracking-tighter text-slate-900 leading-none">সহজ রিচার্জ</span>
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none mt-1">Fast & Secure</span>
               </div>
             </Link>
             
             <div className="hidden lg:flex items-center gap-1 bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50 backdrop-blur-sm">
-              <Link to="/" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white transition-all">হোম</Link>
-              <Link to="/history" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white transition-all">অর্ডার হিস্ট্রি</Link>
+              <Link to="/" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">হোম</Link>
+              <Link to="/history" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">অর্ডার হিস্ট্রি</Link>
             </div>
 
             <div className="flex items-center gap-4">
               {user ? (
-                <div className="flex items-center gap-4 bg-white p-1.5 pr-4 rounded-2xl shadow-sm border border-slate-100">
-                  <div className="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                    <User className="h-5 w-5 text-white" />
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 bg-white p-1.5 pr-4 rounded-2xl shadow-sm border border-slate-100">
+                    <div className="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
+                      <User className="h-5 w-5 text-emerald-400" />
+                    </div>
+                    <div className="hidden sm:flex flex-col">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">প্রেমিয়াম মেম্বার</span>
+                      <span className="text-xs font-black text-slate-900 leading-none mt-1">{user.email.split('@')[0]}</span>
+                    </div>
+                    <div className="h-6 w-px bg-slate-100 mx-1" />
+                    <button 
+                      onClick={handleLogout}
+                      className="text-slate-400 hover:text-red-500 transition-colors"
+                      title="লগআউট"
+                    >
+                      <LogOut className="h-5 w-5" />
+                    </button>
                   </div>
-                  <div className="hidden sm:flex flex-col">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">স্বাগতম</span>
-                    <span className="text-xs font-black text-slate-900 leading-none mt-1">{user.email.split('@')[0]}</span>
-                  </div>
-                  <div className="h-6 w-px bg-slate-100 mx-1" />
-                  <button 
-                    onClick={handleLogout}
-                    className="text-slate-400 hover:text-red-500 transition-colors"
-                    title="লগআউট"
-                  >
-                    <LogOut className="h-5 w-5" />
-                  </button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
@@ -139,12 +152,12 @@ function Layout({ children }: { children: React.ReactNode }) {
                   <Smartphone className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-black text-2xl tracking-tighter leading-none">স্মার্ট রিচার্জ</span>
-                  <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] leading-none mt-1">Premium Service</span>
+                  <span className="font-black text-2xl tracking-tighter leading-none">সহজ রিচার্জ</span>
+                  <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
                 </div>
               </div>
               <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md">
-                বাংলাদেশের সব অপারেটরের জন্য দ্রুত এবং নিরাপদ মোবাইল রিচার্জ সেবা। আমরা আপনার সময় এবং নিরাপত্তার গুরুত্ব বুঝি।
+                সহজ রিচার্জ - বাংলাদেশের সব অপারেটরের জন্য দ্রুত এবং নিরাপদ মোবাইল রিচার্জ সেবা।
               </p>
               <div className="flex gap-4">
                 {[1, 2, 3].map((_, i) => (
@@ -167,7 +180,10 @@ function Layout({ children }: { children: React.ReactNode }) {
               <h4 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">সহযোগিতা</h4>
               <p className="text-sm font-bold text-slate-400 leading-relaxed">যেকোনো সমস্যায় আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
               <div className="pt-4">
-                <Button className="w-full bg-white text-slate-900 hover:bg-emerald-500 hover:text-white rounded-2xl h-14 font-black text-xs uppercase tracking-widest transition-all">
+                <Button 
+                  onClick={() => window.open('https://wa.me/8801924830869', '_blank')}
+                  className="w-full bg-white text-slate-900 hover:bg-emerald-500 hover:text-white rounded-2xl h-14 font-black text-xs uppercase tracking-widest transition-all"
+                >
                   যোগাযোগ করুন
                 </Button>
               </div>
@@ -175,7 +191,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} স্মার্ট রিচার্জ বিডি। সর্বস্বত্ব সংরক্ষিত।
+              &copy; {new Date().getFullYear()} সহজ রিচার্জ বিডি। সর্বস্বত্ব সংরক্ষিত।
             </p>
             <div className="flex gap-8 text-[10px] font-black text-slate-500 uppercase tracking-widest">
               <Link to="#" className="hover:text-white transition-colors">শর্তাবলী</Link>
@@ -200,6 +216,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Toaster 
         position="top-center"
         toastOptions={{

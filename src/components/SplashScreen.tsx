@@ -26,32 +26,51 @@ export default function SplashScreen() {
       >
         {/* Logo Icon */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-24 h-24 bg-white rounded-[2.5rem] flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative group"
+          initial={{ y: 20, opacity: 0, rotate: -10 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.2, type: "spring" }}
+          className="w-28 h-28 bg-white rounded-[3rem] flex items-center justify-center shadow-[0_0_80px_rgba(16,185,129,0.4)] relative overflow-hidden group"
         >
-          <Smartphone className="w-12 h-12 text-emerald-600" />
-          <div className="absolute inset-0 rounded-[2.5rem] border-2 border-emerald-400/30 animate-ping" />
+          <Smartphone className="w-14 h-14 text-emerald-600 relative z-10" />
+          <motion.div 
+            animate={{ 
+              x: ["-100%", "200%"],
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 2, 
+              ease: "linear",
+              repeatDelay: 1
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent skew-x-12"
+          />
+          <div className="absolute inset-0 rounded-[3rem] border-4 border-emerald-400/20" />
         </motion.div>
 
         {/* Text Logo */}
-        <div className="flex flex-col items-center">
-          <motion.h1
+        <div className="flex flex-col items-center space-y-2">
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-4xl font-black tracking-tighter text-white leading-none"
+            className="text-center"
           >
-            স্মার্ট রিচার্জ
-          </motion.h1>
+            <h1 className="text-5xl font-black tracking-tighter text-white leading-none">
+              সহজ রিচার্জ
+            </h1>
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <div className="h-px w-8 bg-emerald-500/50" />
+              <span className="text-xl font-black text-emerald-400 tracking-widest uppercase">Fast & Secure</span>
+              <div className="h-px w-8 bg-emerald-500/50" />
+            </div>
+          </motion.div>
           <motion.span
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xs font-black text-emerald-400 uppercase tracking-[0.4em] mt-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.4 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="text-[10px] font-black text-white uppercase tracking-[0.5em]"
           >
-            Smart Recharge
+            Shohoj Recharge
           </motion.span>
         </div>
 

@@ -7,7 +7,7 @@ import { OPERATOR_DATA } from '@/src/constants';
 import { Input } from '@/src/components/ui/input';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/card';
-import { Smartphone, Wifi, PhoneCall, Package as PackageIcon, Zap, ArrowRight, ShieldCheck, Clock, CreditCard, History as HistoryIcon } from 'lucide-react';
+import { Smartphone, Wifi, PhoneCall, Package as PackageIcon, Zap, ArrowRight, ShieldCheck, Clock, CreditCard, History as HistoryIcon, Wallet, Gift, Headset, Star, TrendingUp, Bell } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -26,6 +26,13 @@ export default function Home() {
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(false);
   const [regularAmount, setRegularAmount] = useState('');
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+  }, []);
 
   useEffect(() => {
     const detected = detectOperator(mobileNumber);
@@ -103,269 +110,277 @@ export default function Home() {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="max-w-4xl mx-auto space-y-12"
+      className="max-w-6xl mx-auto space-y-10 pb-20"
     >
-      <section className="text-center space-y-6 py-12">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="px-4 py-1.5 bg-emerald-50 text-emerald-600 text-xs font-bold uppercase tracking-widest rounded-full border border-emerald-100">
-            দ্রুততম রিচার্জ সেবা
-          </span>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tight text-slate-900 mt-4 leading-tight">
-            মুহূর্তেই রিচার্জ করুন <br />
-            <span className="text-emerald-600">যেকোনো অপারেটরে</span>
-          </h1>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto mt-6">
-            বিকাশ, নগদ বা রকেটের মাধ্যমে বাংলাদেশের যেকোনো মোবাইল নাম্বারে রিচার্জ করুন নিরাপদে এবং দ্রুত।
-          </p>
-        </motion.div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden rounded-[3rem] bg-slate-900 p-8 md:p-16 text-white shadow-2xl shadow-slate-900/40">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-[120px] -mr-64 -mt-64" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] -ml-32 -mb-32" />
+        
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-full border border-emerald-500/20">
+                Premium Recharge Solution
+              </span>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter mt-6 leading-[0.9]">
+                সহজ রিচার্জ <br />
+                <span className="text-emerald-400">Shohoj Recharge</span>
+              </h1>
+              <p className="text-slate-400 text-lg font-medium mt-8 leading-relaxed max-w-md">
+                বাংলাদেশের সব অপারেটরের জন্য দ্রুততম এবং সবচেয়ে নিরাপদ রিচার্জ প্ল্যাটফর্ম। আপনার প্রতিটি রিচার্জ হোক সহজ।
+              </p>
+            </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-6 pt-4">
-          <div className="flex items-center gap-2 text-slate-400">
-            <ShieldCheck className="w-5 h-5 text-emerald-500" />
-            <span className="text-sm font-semibold">১০০% নিরাপদ</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-400">
-            <Clock className="w-5 h-5 text-emerald-500" />
-            <span className="text-sm font-semibold">তাৎক্ষণিক রিচার্জ</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-400">
-            <CreditCard className="w-5 h-5 text-emerald-500" />
-            <span className="text-sm font-semibold">সহজ পেমেন্ট</span>
+            <div className="flex flex-wrap gap-6 pt-4">
+              <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
+                <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                <span className="text-xs font-black uppercase tracking-widest">১০০% নিরাপদ</span>
+              </div>
+              <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
+                <Zap className="w-5 h-5 text-amber-400" />
+                <span className="text-xs font-black uppercase tracking-widest">তাৎক্ষণিক</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <Card className="lg:col-span-3 border-none shadow-2xl shadow-slate-200/50 bg-white/80 backdrop-blur-xl overflow-hidden">
-          <div className="h-2 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600" />
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xl font-bold flex items-center gap-2">
-              <Smartphone className="w-5 h-5 text-emerald-600" />
-              রিচার্জের তথ্য
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-8 p-8">
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">মোবাইল নাম্বার</label>
-              <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                  <Smartphone className="h-6 w-6 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                  <span className="text-slate-300">|</span>
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        {/* Left Column: Recharge Form */}
+        <div className="lg:col-span-8 space-y-10">
+          <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white rounded-[2.5rem] overflow-hidden">
+            <div className="h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600" />
+            <CardHeader className="p-10 pb-0">
+              <CardTitle className="text-2xl font-black flex items-center gap-3">
+                <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+                  <Smartphone className="w-5 h-5 text-emerald-600" />
                 </div>
-                <Input
-                  type="tel"
-                  placeholder="01XXXXXXXXX"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 11))}
-                  className="pl-16 h-16 text-2xl font-bold border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-emerald-500/20 rounded-2xl transition-all"
-                />
-                {operator && (
+                রিচার্জ করুন
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-10 space-y-10">
+              {/* Mobile Number Input */}
+              <div className="space-y-4">
+                <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">মোবাইল নাম্বার</label>
+                <div className="relative group">
+                  <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                    <Smartphone className="h-7 w-7 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                    <div className="h-8 w-px bg-slate-100" />
+                  </div>
+                  <Input
+                    type="tel"
+                    placeholder="01XXXXXXXXX"
+                    value={mobileNumber}
+                    onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                    className="pl-20 h-20 text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 rounded-3xl transition-all placeholder:text-slate-200"
+                  />
+                  {operator && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3"
+                    >
+                      <div className="w-12 h-12 rounded-2xl overflow-hidden border border-slate-100 shadow-xl bg-white p-2 flex items-center justify-center">
+                        <img 
+                          src={OPERATOR_DATA[operator].logo} 
+                          alt={operator} 
+                          className="w-full h-full object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xs font-black text-emerald-600">${operator[0]}</span>`;
+                          }}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+
+              {/* Recharge Types */}
+              <div className="space-y-4">
+                <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">রিচার্জের ধরণ</label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {RECHARGE_TYPES.map((type) => {
+                    const Icon = type.icon;
+                    const isActive = rechargeType === type.id;
+                    return (
+                      <button
+                        key={type.id}
+                        onClick={() => setRechargeType(type.id)}
+                        className={cn(
+                          "group flex flex-col items-center justify-center p-6 rounded-3xl border-2 transition-all duration-500",
+                          isActive
+                            ? "border-emerald-500 bg-emerald-50/50 text-emerald-700 shadow-xl shadow-emerald-100/50 -translate-y-1"
+                            : "border-slate-50 bg-white text-slate-400 hover:border-slate-200 hover:bg-slate-50"
+                        )}
+                      >
+                        <div className={cn(
+                          "w-14 h-14 rounded-2xl flex items-center justify-center mb-3 transition-all duration-500",
+                          isActive ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 rotate-6" : type.color
+                        )}>
+                          <Icon className="h-7 w-7" />
+                        </div>
+                        <span className="text-xs font-black uppercase tracking-widest">{type.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Dynamic Content: Regular or Packages */}
+              <AnimatePresence mode="wait">
+                {rechargeType === 'Regular' ? (
                   <motion.div 
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2"
+                    key="regular"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="space-y-8 pt-10 border-t border-slate-50"
                   >
-                    <div className="w-8 h-8 rounded-lg overflow-hidden border border-slate-100 shadow-sm bg-white p-1 flex items-center justify-center">
-                      <img 
-                        src={OPERATOR_DATA[operator].logo} 
-                        alt={operator} 
-                        className="w-full h-full object-contain"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-[10px] font-black text-emerald-600">${operator[0]}</span>`;
-                        }}
-                      />
+                    <div className="space-y-4">
+                      <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">টাকার পরিমাণ (৳)</label>
+                      <div className="relative group">
+                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-3xl font-black text-slate-200">৳</span>
+                        <Input
+                          type="number"
+                          placeholder="পরিমাণ লিখুন"
+                          value={regularAmount}
+                          onChange={(e) => setRegularAmount(e.target.value)}
+                          className="pl-14 h-20 text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white rounded-3xl"
+                        />
+                      </div>
+                      <div className="flex flex-wrap gap-3 pt-2">
+                        {[20, 50, 100, 200, 500].map(amt => (
+                          <button 
+                            key={amt}
+                            onClick={() => setRegularAmount(amt.toString())}
+                            className="px-6 py-3 rounded-2xl border border-slate-100 bg-white text-sm font-black text-slate-500 hover:border-emerald-500 hover:text-emerald-600 hover:shadow-lg hover:shadow-emerald-100 transition-all"
+                          >
+                            ৳{amt}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <span className={cn(
-                      "px-3 py-1 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg",
-                      OPERATOR_DATA[operator].bg
-                    )}>
-                      {operator}
-                    </span>
+                    <Button className="w-full h-20 bg-slate-900 hover:bg-black text-white rounded-3xl text-xl font-black shadow-2xl shadow-slate-900/20 transition-all hover:-translate-y-1 group" onClick={handleProceedRegular}>
+                      পেমেন্ট করুন 
+                      <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                    </Button>
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key="packages"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="space-y-6 pt-10 border-t border-slate-50"
+                  >
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest">উপলব্ধ প্যাকেজসমূহ</h3>
+                      {operator && (
+                        <div className="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-100">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{operator}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {!operator ? (
+                      <div className="text-center py-20 bg-slate-50/50 rounded-[2.5rem] border-4 border-dashed border-slate-100">
+                        <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-slate-200/50">
+                          <Smartphone className="w-10 h-10 text-slate-200" />
+                        </div>
+                        <p className="text-sm font-black text-slate-400 uppercase tracking-widest">প্যাকেজ দেখতে মোবাইল নাম্বার দিন</p>
+                      </div>
+                    ) : loading ? (
+                      <div className="space-y-4">
+                        {[1, 2, 3].map(i => (
+                          <div key={i} className="h-24 bg-slate-50 animate-pulse rounded-3xl" />
+                        ))}
+                      </div>
+                    ) : packages.length === 0 ? (
+                      <div className="text-center py-20 bg-slate-50/50 rounded-[2.5rem] border-4 border-dashed border-slate-100">
+                        <p className="text-sm font-black text-slate-400 uppercase tracking-widest">এই ক্যাটাগরিতে কোনো প্যাকেজ পাওয়া যায়নি</p>
+                      </div>
+                    ) : (
+                      <div className="grid gap-4">
+                        {packages.map((pkg) => (
+                          <motion.div 
+                            whileHover={{ scale: 1.02 }}
+                            key={pkg.id} 
+                            className="flex items-center justify-between p-6 rounded-[2rem] border border-slate-100 bg-white hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100 transition-all group"
+                          >
+                            <div className="space-y-2">
+                              <h4 className="font-black text-slate-900 text-xl">{pkg.name}</h4>
+                              <div className="flex items-center gap-4">
+                                <span className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full">
+                                  <Clock className="w-3 h-3 text-emerald-500" /> {pkg.validity}
+                                </span>
+                                <span className="flex items-center gap-2 text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">
+                                  <TrendingUp className="w-3 h-3" /> বেস্ট সেলার
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-8">
+                              <span className="font-black text-3xl text-slate-900 tracking-tighter">৳{pkg.price}</span>
+                              <Button 
+                                onClick={() => handleBuyPackage(pkg)}
+                                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest px-8 h-14 shadow-xl shadow-emerald-200 transition-all group-hover:-translate-y-1"
+                              >
+                                কিনুন
+                              </Button>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 )}
-              </div>
-            </div>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+        </div>
 
-            <div className="space-y-4">
-              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">রিচার্জের ধরণ</label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {RECHARGE_TYPES.map((type) => {
-                  const Icon = type.icon;
-                  const isActive = rechargeType === type.id;
-                  return (
-                    <button
-                      key={type.id}
-                      onClick={() => setRechargeType(type.id)}
-                      className={cn(
-                        "group flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-300",
-                        isActive
-                          ? "border-emerald-600 bg-emerald-50/50 text-emerald-700 shadow-lg shadow-emerald-100"
-                          : "border-slate-50 bg-white text-slate-400 hover:border-slate-200 hover:bg-slate-50"
-                      )}
-                    >
-                      <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center mb-2 transition-transform group-hover:scale-110",
-                        isActive ? "bg-emerald-600 text-white" : type.color
-                      )}>
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <span className="text-xs font-bold">{type.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <AnimatePresence mode="wait">
-              {rechargeType === 'Regular' ? (
-                <motion.div 
-                  key="regular"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="space-y-6 pt-6 border-t border-slate-100"
-                >
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">টাকার পরিমাণ (৳)</label>
-                    <div className="relative group">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-slate-300">৳</span>
-                      <Input
-                        type="number"
-                        placeholder="পরিমাণ লিখুন"
-                        value={regularAmount}
-                        onChange={(e) => setRegularAmount(e.target.value)}
-                        className="pl-10 h-16 text-2xl font-bold border-slate-100 bg-slate-50/50 focus:bg-white rounded-2xl"
-                      />
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {[20, 50, 100, 200, 500].map(amt => (
-                        <button 
-                          key={amt}
-                          onClick={() => setRegularAmount(amt.toString())}
-                          className="px-4 py-2 rounded-xl border border-slate-100 bg-white text-sm font-bold text-slate-500 hover:border-emerald-500 hover:text-emerald-600 transition-all"
-                        >
-                          ৳{amt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <Button className="w-full h-16 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xl font-black shadow-xl shadow-emerald-200 transition-all hover:-translate-y-1" onClick={handleProceedRegular}>
-                    পেমেন্ট করুন <ArrowRight className="ml-2 h-6 w-6" />
-                  </Button>
-                </motion.div>
-              ) : (
-                <motion.div 
-                  key="packages"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="space-y-4 pt-6 border-t border-slate-100"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-slate-900">উপলব্ধ প্যাকেজসমূহ</h3>
-                    {operator && <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">{operator}</span>}
-                  </div>
-                  
-                  {!operator ? (
-                    <div className="text-center py-12 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-100">
-                      <Smartphone className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-                      <p className="text-sm font-bold text-slate-400">প্যাকেজ দেখতে মোবাইল নাম্বার দিন</p>
-                    </div>
-                  ) : loading ? (
-                    <div className="space-y-3">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="h-20 bg-slate-50 animate-pulse rounded-2xl" />
-                      ))}
-                    </div>
-                  ) : packages.length === 0 ? (
-                    <div className="text-center py-12 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-100">
-                      <p className="text-sm font-bold text-slate-400">এই ক্যাটাগরিতে কোনো প্যাকেজ পাওয়া যায়নি</p>
-                    </div>
-                  ) : (
-                    <div className="grid gap-4">
-                      {packages.map((pkg) => (
-                        <motion.div 
-                          whileHover={{ scale: 1.01 }}
-                          key={pkg.id} 
-                          className="flex items-center justify-between p-5 rounded-2xl border border-slate-100 bg-white hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-50 transition-all"
-                        >
-                          <div className="space-y-1">
-                            <h4 className="font-bold text-slate-900 text-lg">{pkg.name}</h4>
-                            <div className="flex items-center gap-3 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                              <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> মেয়াদ: {pkg.validity}</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-6">
-                            <span className="font-black text-2xl text-slate-900">৳{pkg.price}</span>
-                            <Button 
-                              onClick={() => handleBuyPackage(pkg)}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold px-6 h-12 shadow-lg shadow-emerald-100"
-                            >
-                              কিনুন
-                            </Button>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </CardContent>
-        </Card>
-
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="border-none shadow-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-400/20 rounded-full -ml-12 -mb-12 blur-xl" />
-            <CardHeader>
-              <CardTitle className="text-xl font-black">কেন আমাদের বেছে নিবেন?</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6 relative z-10">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-                  <Zap className="w-6 h-6" />
+        {/* Right Column: Widgets */}
+        <div className="lg:col-span-4 space-y-10">
+          {/* Support Widget */}
+          <Card className="border-none shadow-2xl bg-white rounded-[2.5rem] overflow-hidden border border-slate-100">
+            <CardContent className="p-8 space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center">
+                  <Headset className="w-7 h-7 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold">সুপার ফাস্ট</h4>
-                  <p className="text-emerald-50/80 text-sm">অর্ডার করার কয়েক মিনিটের মধ্যেই রিচার্জ পৌঁছে যাবে আপনার ফোনে।</p>
+                  <h4 className="text-lg font-black text-slate-900">সাহায্য প্রয়োজন?</h4>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">২৪/৭ কাস্টমার সাপোর্ট</p>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold">নিরাপদ পেমেন্ট</h4>
-                  <p className="text-emerald-50/80 text-sm">বিকাশ, নগদ এবং রকেটের মাধ্যমে পেমেন্ট করুন নিশ্চিন্তে।</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-                  <HistoryIcon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold">অর্ডার ট্র্যাকিং</h4>
-                  <p className="text-emerald-50/80 text-sm">আপনার প্রতিটি অর্ডারের স্ট্যাটাস চেক করুন যেকোনো সময়।</p>
-                </div>
-              </div>
+              <p className="text-slate-500 text-sm font-medium leading-relaxed">যেকোনো রিচার্জ বা পেমেন্ট সংক্রান্ত সমস্যায় আমাদের সাপোর্ট টিমের সাথে সরাসরি কথা বলুন।</p>
+              <Button 
+                onClick={() => window.open('https://wa.me/8801924830869', '_blank')}
+                variant="outline" 
+                className="w-full border-slate-100 hover:bg-slate-50 hover:border-blue-500 hover:text-blue-600 rounded-2xl h-14 font-black text-[10px] uppercase tracking-widest transition-all"
+              >
+                সাপোর্ট টিমের সাথে চ্যাট করুন
+              </Button>
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-xl bg-white overflow-hidden">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold">অপারেটরসমূহ</CardTitle>
+          {/* Operators List */}
+          <Card className="border-none shadow-2xl bg-white rounded-[2.5rem] overflow-hidden border border-slate-100">
+            <CardHeader className="p-8 pb-0">
+              <CardTitle className="text-lg font-black uppercase tracking-widest text-slate-400">অপারেটরসমূহ</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-8">
               <div className="grid grid-cols-2 gap-4">
                 {(Object.keys(OPERATOR_DATA) as Operator[]).map(op => (
-                  <div key={op} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-all group">
-                    <div className="w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center p-1.5 group-hover:scale-110 transition-transform">
+                  <div key={op} className="flex flex-col items-center gap-3 p-4 rounded-3xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:bg-white transition-all group">
+                    <div className="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
                       <img 
                         src={OPERATOR_DATA[op].logo} 
                         alt={op} 
@@ -376,7 +391,7 @@ export default function Home() {
                         }}
                       />
                     </div>
-                    <span className="text-xs font-bold text-slate-700">{OPERATOR_DATA[op].name || op}</span>
+                    <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">{OPERATOR_DATA[op].name || op}</span>
                   </div>
                 ))}
               </div>

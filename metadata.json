@@ -1,5 +1,5 @@
 {
-  "name": "Remix: Smart Recharge BD",
-  "description": "Mobile recharge web app for Bangladesh with Supabase backend, supporting GP, Robi/Airtel, Banglalink, and Teletalk.",
+  "name": "সহজ রিচার্জ",
+  "description": "সহজ এবং দ্রুত মোবাইল রিচার্জ সেবা। বাংলাদেশের সব অপারেটরের জন্য নিরাপদ রিচার্জ প্ল্যাটফর্ম।",
   "requestFramePermissions": []
 }
