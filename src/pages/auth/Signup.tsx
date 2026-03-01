@@ -50,27 +50,27 @@ export default function UserSignup() {
       animate={{ opacity: 1, y: 0 }}
       className="min-h-[80vh] flex items-center justify-center p-4"
     >
-      <Card className="w-full max-w-md border-none shadow-2xl bg-white overflow-hidden">
+      <Card className="w-full max-w-md border-none shadow-2xl bg-white rounded-3xl sm:rounded-[2.5rem] overflow-hidden">
         <div className="h-2 bg-gradient-to-r from-emerald-400 to-teal-500" />
-        <CardHeader className="text-center space-y-4 pt-10">
+        <CardHeader className="text-center space-y-4 pt-10 px-6 sm:px-10">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20">
-              <Smartphone className="h-8 w-8 text-white" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20">
+              <Smartphone className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <div className="flex flex-col text-left">
-              <span className="font-black text-2xl tracking-tighter leading-none text-slate-900">সহজ রিচার্জ</span>
-              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
+              <span className="font-black text-xl sm:text-2xl tracking-tighter leading-none text-slate-900">সহজ রিচার্জ</span>
+              <span className="text-[8px] sm:text-[10px] font-black text-emerald-500 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
             </div>
           </div>
           <div className="space-y-1">
-            <CardTitle className="text-3xl font-black tracking-tight text-slate-900">নতুন অ্যাকাউন্ট</CardTitle>
-            <p className="text-slate-500 font-medium">স্মার্ট রিচার্জ পরিবারের সদস্য হতে আজই যোগ দিন</p>
+            <CardTitle className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">নতুন অ্যাকাউন্ট</CardTitle>
+            <p className="text-sm sm:text-base text-slate-500 font-medium">স্মার্ট রিচার্জ পরিবারের সদস্য হতে আজই যোগ দিন</p>
           </div>
         </CardHeader>
-        <CardContent className="p-10 pt-6">
+        <CardContent className="p-6 sm:p-10 pt-4 sm:pt-6">
           <form onSubmit={handleSignup} className="space-y-6">
             <div className="space-y-3">
-              <label className="text-xs font-black text-slate-400 uppercase tracking-widest">ইমেইল ঠিকানা</label>
+              <label className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">ইমেইল ঠিকানা</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                 <Input
@@ -84,7 +84,7 @@ export default function UserSignup() {
               </div>
             </div>
             <div className="space-y-3">
-              <label className="text-xs font-black text-slate-400 uppercase tracking-widest">পাসওয়ার্ড</label>
+              <label className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">পাসওয়ার্ড</label>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                 <Input
@@ -105,14 +105,14 @@ export default function UserSignup() {
               </p>
             </div>
 
-            <Button type="submit" className="w-full h-14 bg-slate-900 hover:bg-black text-white rounded-2xl text-lg font-black shadow-xl shadow-slate-200 transition-all hover:-translate-y-1" disabled={loading}>
+            <Button type="submit" className="w-full h-14 bg-slate-900 hover:bg-black text-white rounded-2xl text-lg font-black shadow-xl shadow-slate-900/10 transition-all hover:-translate-y-1" disabled={loading}>
               {loading ? 'অপেক্ষা করুন...' : 'অ্যাকাউন্ট তৈরি করুন'}
               {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
             </Button>
           </form>
           
           <div className="mt-8 text-center">
-            <p className="text-slate-500 font-medium">
+            <p className="text-sm sm:text-base text-slate-500 font-medium">
               ইতিমধ্যে অ্যাকাউন্ট আছে?{' '}
               <Link to="/login" className="text-emerald-600 font-black hover:underline">
                 লগইন করুন

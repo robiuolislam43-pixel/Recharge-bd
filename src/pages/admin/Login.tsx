@@ -46,57 +46,57 @@ export default function AdminLogin() {
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="min-h-[80vh] flex items-center justify-center p-4"
+      className="min-h-[80vh] flex items-center justify-center p-4 sm:p-6"
     >
-      <Card className="w-full max-w-md border-none shadow-2xl bg-slate-900 text-white overflow-hidden">
+      <Card className="w-full max-w-md border-none shadow-2xl bg-slate-900 text-white overflow-hidden rounded-3xl sm:rounded-[2.5rem]">
         <div className="h-2 bg-gradient-to-r from-emerald-400 to-teal-500" />
-        <CardHeader className="text-center space-y-4 pt-10">
-          <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-2 border border-white/10 shadow-inner">
-            <ShieldCheck className="w-10 h-10 text-emerald-400" />
+        <CardHeader className="text-center space-y-4 pt-8 sm:pt-10">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-2 border border-white/10 shadow-inner">
+            <ShieldCheck className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-400" />
           </div>
           <div className="space-y-1">
-            <CardTitle className="text-3xl font-black tracking-tight">অ্যাডমিন লগইন</CardTitle>
-            <p className="text-slate-400 font-medium">স্মার্ট রিচার্জ ড্যাশবোর্ডে নিরাপদ প্রবেশ</p>
+            <CardTitle className="text-2xl sm:text-3xl font-black tracking-tight">অ্যাডমিন লগইন</CardTitle>
+            <p className="text-xs sm:text-sm text-slate-400 font-medium">স্মার্ট রিচার্জ ড্যাশবোর্ডে নিরাপদ প্রবেশ</p>
           </div>
         </CardHeader>
-        <CardContent className="p-10 pt-6">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-3">
-              <label className="text-xs font-black text-slate-400 uppercase tracking-widest">ইমেইল ঠিকানা</label>
+        <CardContent className="p-6 sm:p-10 pt-4 sm:pt-6">
+          <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
+            <div className="space-y-2 sm:space-y-3">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ইমেইল ঠিকানা</label>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
                 <Input
                   type="email"
                   placeholder="admin@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-12 h-14 bg-white/5 border-white/10 focus:border-emerald-500/50 rounded-2xl text-white placeholder:text-slate-600"
+                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-white/5 border-white/10 focus:border-emerald-500/50 rounded-xl sm:rounded-2xl text-white placeholder:text-slate-600 font-black text-xs sm:text-sm"
                   required
                 />
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="text-xs font-black text-slate-400 uppercase tracking-widest">পাসওয়ার্ড</label>
+            <div className="space-y-2 sm:space-y-3">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">পাসওয়ার্ড</label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
                 <Input
                   type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-12 h-14 bg-white/5 border-white/10 focus:border-emerald-500/50 rounded-2xl text-white placeholder:text-slate-600"
+                  className="pl-10 sm:pl-12 h-12 sm:h-14 bg-white/5 border-white/10 focus:border-emerald-500/50 rounded-xl sm:rounded-2xl text-white placeholder:text-slate-600 font-black text-xs sm:text-sm"
                   required
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full h-14 bg-emerald-500 hover:bg-emerald-600 text-slate-900 rounded-2xl text-lg font-black shadow-xl shadow-emerald-500/20 transition-all hover:-translate-y-1" disabled={loading}>
+            <Button type="submit" className="w-full h-12 sm:h-14 bg-emerald-500 hover:bg-emerald-600 text-slate-900 rounded-xl sm:rounded-2xl text-base sm:text-lg font-black shadow-xl shadow-emerald-500/20 transition-all hover:-translate-y-1" disabled={loading}>
               {loading ? 'প্রবেশ করা হচ্ছে...' : 'লগইন করুন'}
-              {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
+              {!loading && <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
           </form>
           
-          <div className="mt-8 pt-8 border-t border-white/5 text-center">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+          <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/5 text-center">
+            <p className="text-[8px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">
               শুধুমাত্র অনুমোদিত অ্যাডমিনদের জন্য
             </p>
           </div>

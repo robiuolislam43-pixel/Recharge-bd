@@ -1,1 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Hind Siliguri", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Hind Siliguri", "Inter", sans-serif;
+  
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+  
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+}
+
+@layer base {
+  body {
+    @apply antialiased text-slate-900 bg-[#F8FAFC];
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  /* Prevent text overflow and ensure readability */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight leading-tight;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl shadow-slate-200/50;
+  }
+  
+  .btn-primary {
+    @apply bg-slate-900 text-white hover:bg-black transition-all duration-300 shadow-xl shadow-slate-900/10 active:scale-95;
+  }
+  
+  .input-field {
+    @apply border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 rounded-2xl transition-all duration-300;
+  }
+}
+
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+}

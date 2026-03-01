@@ -113,37 +113,37 @@ export default function Home() {
       className="max-w-6xl mx-auto space-y-10 pb-20"
     >
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-[3rem] bg-slate-900 p-8 md:p-16 text-white shadow-2xl shadow-slate-900/40">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-[120px] -mr-64 -mt-64" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] -ml-32 -mb-32" />
+      <section className="relative overflow-hidden rounded-3xl sm:rounded-[3rem] bg-slate-900 p-6 sm:p-12 md:p-16 text-white shadow-2xl shadow-slate-900/40">
+        <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-emerald-500/20 rounded-full blur-[80px] sm:blur-[120px] -mr-32 sm:-mr-64 -mt-32 sm:-mt-64" />
+        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-blue-500/10 rounded-full blur-[60px] sm:blur-[100px] -ml-20 sm:-ml-32 -mb-20 sm:-mb-32" />
         
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="space-y-6 sm:space-y-8">
             <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-full border border-emerald-500/20">
+              <span className="px-3 py-1 sm:px-4 sm:py-1.5 bg-emerald-500/10 text-emerald-400 text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] rounded-full border border-emerald-500/20">
                 Premium Recharge Solution
               </span>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter mt-6 leading-[0.9]">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter mt-4 sm:mt-6 leading-[0.9]">
                 সহজ রিচার্জ <br />
                 <span className="text-emerald-400">Shohoj Recharge</span>
               </h1>
-              <p className="text-slate-400 text-lg font-medium mt-8 leading-relaxed max-w-md">
+              <p className="text-slate-400 text-sm sm:text-lg font-medium mt-6 sm:mt-8 leading-relaxed max-w-md">
                 বাংলাদেশের সব অপারেটরের জন্য দ্রুততম এবং সবচেয়ে নিরাপদ রিচার্জ প্ল্যাটফর্ম। আপনার প্রতিটি রিচার্জ হোক সহজ।
               </p>
             </motion.div>
 
-            <div className="flex flex-wrap gap-6 pt-4">
-              <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
-                <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                <span className="text-xs font-black uppercase tracking-widest">১০০% নিরাপদ</span>
+            <div className="flex flex-wrap gap-3 sm:gap-6 pt-2 sm:pt-4">
+              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl border border-white/10">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+                <span className="text-[9px] sm:text-xs font-black uppercase tracking-widest">১০০% নিরাপদ</span>
               </div>
-              <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
-                <Zap className="w-5 h-5 text-amber-400" />
-                <span className="text-xs font-black uppercase tracking-widest">তাৎক্ষণিক</span>
+              <div className="flex items-center gap-2 sm:gap-3 bg-white/5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl border border-white/10">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+                <span className="text-[9px] sm:text-xs font-black uppercase tracking-widest">তাৎক্ষণিক</span>
               </div>
             </div>
           </div>
@@ -154,46 +154,46 @@ export default function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Left Column: Recharge Form */}
         <div className="lg:col-span-8 space-y-10">
-          <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white rounded-[2.5rem] overflow-hidden">
-            <div className="h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600" />
-            <CardHeader className="p-10 pb-0">
-              <CardTitle className="text-2xl font-black flex items-center gap-3">
-                <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
-                  <Smartphone className="w-5 h-5 text-emerald-600" />
+          <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white rounded-3xl sm:rounded-[2.5rem] overflow-hidden">
+            <div className="h-2 sm:h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600" />
+            <CardHeader className="p-6 sm:p-10 pb-0">
+              <CardTitle className="text-xl sm:text-2xl font-black flex items-center gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+                  <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
                 </div>
                 রিচার্জ করুন
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-10 space-y-10">
+            <CardContent className="p-6 sm:p-10 space-y-8 sm:space-y-10">
               {/* Mobile Number Input */}
-              <div className="space-y-4">
-                <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">মোবাইল নাম্বার</label>
+              <div className="space-y-3 sm:space-y-4">
+                <label className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em]">মোবাইল নাম্বার</label>
                 <div className="relative group">
-                  <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                    <Smartphone className="h-7 w-7 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
-                    <div className="h-8 w-px bg-slate-100" />
+                  <div className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
+                    <Smartphone className="h-5 w-5 sm:h-7 sm:w-7 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                    <div className="h-6 sm:h-8 w-px bg-slate-100" />
                   </div>
                   <Input
                     type="tel"
                     placeholder="01XXXXXXXXX"
                     value={mobileNumber}
                     onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 11))}
-                    className="pl-20 h-20 text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 rounded-3xl transition-all placeholder:text-slate-200"
+                    className="pl-14 sm:pl-20 h-16 sm:h-20 text-xl sm:text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 rounded-2xl sm:rounded-3xl transition-all placeholder:text-slate-200"
                   />
                   {operator && (
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3"
+                      className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3"
                     >
-                      <div className="w-12 h-12 rounded-2xl overflow-hidden border border-slate-100 shadow-xl bg-white p-2 flex items-center justify-center">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl overflow-hidden border border-slate-100 shadow-xl bg-white p-1.5 sm:p-2 flex items-center justify-center">
                         <img 
                           src={OPERATOR_DATA[operator].logo} 
                           alt={operator} 
                           className="w-full h-full object-contain"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = 'none';
-                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xs font-black text-emerald-600">${operator[0]}</span>`;
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-[10px] sm:text-xs font-black text-emerald-600">${operator[0]}</span>`;
                           }}
                         />
                       </div>
@@ -203,9 +203,9 @@ export default function Home() {
               </div>
 
               {/* Recharge Types */}
-              <div className="space-y-4">
-                <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">রিচার্জের ধরণ</label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="space-y-3 sm:space-y-4">
+                <label className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em]">রিচার্জের ধরণ</label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                   {RECHARGE_TYPES.map((type) => {
                     const Icon = type.icon;
                     const isActive = rechargeType === type.id;
@@ -214,19 +214,19 @@ export default function Home() {
                         key={type.id}
                         onClick={() => setRechargeType(type.id)}
                         className={cn(
-                          "group flex flex-col items-center justify-center p-6 rounded-3xl border-2 transition-all duration-500",
+                          "group flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl sm:rounded-3xl border-2 transition-all duration-500",
                           isActive
                             ? "border-emerald-500 bg-emerald-50/50 text-emerald-700 shadow-xl shadow-emerald-100/50 -translate-y-1"
                             : "border-slate-50 bg-white text-slate-400 hover:border-slate-200 hover:bg-slate-50"
                         )}
                       >
                         <div className={cn(
-                          "w-14 h-14 rounded-2xl flex items-center justify-center mb-3 transition-all duration-500",
+                          "w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-3 transition-all duration-500",
                           isActive ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 rotate-6" : type.color
                         )}>
-                          <Icon className="h-7 w-7" />
+                          <Icon className="h-5 w-5 sm:h-7 sm:w-7" />
                         </div>
-                        <span className="text-xs font-black uppercase tracking-widest">{type.label}</span>
+                        <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest">{type.label}</span>
                       </button>
                     );
                   })}
@@ -241,35 +241,35 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="space-y-8 pt-10 border-t border-slate-50"
+                    className="space-y-6 sm:space-y-8 pt-8 sm:pt-10 border-t border-slate-50"
                   >
-                    <div className="space-y-4">
-                      <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">টাকার পরিমাণ (৳)</label>
+                    <div className="space-y-3 sm:space-y-4">
+                      <label className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em]">টাকার পরিমাণ (৳)</label>
                       <div className="relative group">
-                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-3xl font-black text-slate-200">৳</span>
+                        <span className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl font-black text-slate-200">৳</span>
                         <Input
                           type="number"
                           placeholder="পরিমাণ লিখুন"
                           value={regularAmount}
                           onChange={(e) => setRegularAmount(e.target.value)}
-                          className="pl-14 h-20 text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white rounded-3xl"
+                          className="pl-10 sm:pl-14 h-16 sm:h-20 text-2xl sm:text-3xl font-black border-slate-100 bg-slate-50/50 focus:bg-white rounded-2xl sm:rounded-3xl"
                         />
                       </div>
-                      <div className="flex flex-wrap gap-3 pt-2">
+                      <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
                         {[20, 50, 100, 200, 500].map(amt => (
                           <button 
                             key={amt}
                             onClick={() => setRegularAmount(amt.toString())}
-                            className="px-6 py-3 rounded-2xl border border-slate-100 bg-white text-sm font-black text-slate-500 hover:border-emerald-500 hover:text-emerald-600 hover:shadow-lg hover:shadow-emerald-100 transition-all"
+                            className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-100 bg-white text-xs sm:text-sm font-black text-slate-500 hover:border-emerald-500 hover:text-emerald-600 hover:shadow-lg hover:shadow-emerald-100 transition-all"
                           >
                             ৳{amt}
                           </button>
                         ))}
                       </div>
                     </div>
-                    <Button className="w-full h-20 bg-slate-900 hover:bg-black text-white rounded-3xl text-xl font-black shadow-2xl shadow-slate-900/20 transition-all hover:-translate-y-1 group" onClick={handleProceedRegular}>
+                    <Button className="w-full h-16 sm:h-20 bg-slate-900 hover:bg-black text-white rounded-2xl sm:rounded-3xl text-lg sm:text-xl font-black shadow-2xl shadow-slate-900/20 transition-all hover:-translate-y-1 group" onClick={handleProceedRegular}>
                       পেমেন্ট করুন 
-                      <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                      <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 group-hover:translate-x-2 transition-transform" />
                     </Button>
                   </motion.div>
                 ) : (
@@ -308,31 +308,51 @@ export default function Home() {
                         <p className="text-sm font-black text-slate-400 uppercase tracking-widest">এই ক্যাটাগরিতে কোনো প্যাকেজ পাওয়া যায়নি</p>
                       </div>
                     ) : (
-                      <div className="grid gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6">
                         {packages.map((pkg) => (
                           <motion.div 
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.01, y: -2 }}
                             key={pkg.id} 
-                            className="flex items-center justify-between p-6 rounded-[2rem] border border-slate-100 bg-white hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100 transition-all group"
+                            className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 sm:p-6 rounded-3xl sm:rounded-[2rem] border border-slate-100 bg-white hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-100 transition-all group relative overflow-hidden"
                           >
-                            <div className="space-y-2">
-                              <h4 className="font-black text-slate-900 text-xl">{pkg.name}</h4>
-                              <div className="flex items-center gap-4">
-                                <span className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-emerald-500/10 transition-colors" />
+                            
+                            <div className="space-y-3 sm:space-y-2 w-full sm:w-auto relative z-10">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-50 rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                  <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
+                                </div>
+                                <div>
+                                  <h4 className="font-black text-slate-900 text-lg sm:text-xl tracking-tight">{pkg.name}</h4>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest">{pkg.type}</span>
+                                    <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                    <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{pkg.operator}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center gap-3 sm:gap-4">
+                                <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
                                   <Clock className="w-3 h-3 text-emerald-500" /> {pkg.validity}
                                 </span>
-                                <span className="flex items-center gap-2 text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">
+                                <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">
                                   <TrendingUp className="w-3 h-3" /> বেস্ট সেলার
                                 </span>
                               </div>
                             </div>
-                            <div className="flex items-center gap-8">
-                              <span className="font-black text-3xl text-slate-900 tracking-tighter">৳{pkg.price}</span>
+
+                            <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-8 w-full sm:w-auto pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-50 mt-4 sm:mt-0 relative z-10">
+                              <div className="flex flex-col sm:items-end">
+                                <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">মূল্য</span>
+                                <span className="font-black text-2xl sm:text-3xl text-slate-900 tracking-tighter leading-none">৳{pkg.price}</span>
+                              </div>
                               <Button 
                                 onClick={() => handleBuyPackage(pkg)}
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest px-8 h-14 shadow-xl shadow-emerald-200 transition-all group-hover:-translate-y-1"
+                                className="bg-slate-900 hover:bg-black text-white rounded-2xl font-black text-[10px] sm:text-xs uppercase tracking-widest px-6 sm:px-8 h-12 sm:h-14 shadow-xl shadow-slate-900/10 transition-all group-hover:-translate-y-1 flex items-center gap-2"
                               >
                                 কিনুন
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                               </Button>
                             </div>
                           </motion.div>

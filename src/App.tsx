@@ -98,62 +98,62 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-900 flex flex-col">
-      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/70 backdrop-blur-xl shadow-2xl shadow-slate-200/50 py-3' : 'bg-transparent py-6'}`}>
+      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-2xl shadow-slate-200/50 py-2' : 'bg-transparent py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-2xl shadow-slate-900/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
+            <Link to="/" className="flex items-center gap-3 group shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-2xl shadow-slate-900/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <Smartphone className="h-6 w-6 text-emerald-400 relative z-10" />
+                <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400 relative z-10" />
               </div>
               <div className="flex flex-col">
-                <span className="font-black text-xl tracking-tighter text-slate-900 leading-none">সহজ রিচার্জ</span>
-                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none mt-1">Fast & Secure</span>
+                <span className="font-black text-lg sm:text-xl tracking-tighter text-slate-900 leading-none">সহজ রিচার্জ</span>
+                <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none mt-1">Fast & Secure</span>
               </div>
             </Link>
             
-            <div className="hidden lg:flex items-center gap-1 bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50 backdrop-blur-sm">
-              <Link to="/" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">হোম</Link>
-              <Link to="/history" className="px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">অর্ডার হিস্ট্রি</Link>
+            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-2xl border border-slate-200/50 backdrop-blur-sm">
+              <Link to="/" className="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">হোম</Link>
+              <Link to="/history" className="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 hover:bg-white hover:shadow-sm transition-all">অর্ডার হিস্ট্রি</Link>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {user ? (
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-4 bg-white p-1.5 pr-4 rounded-2xl shadow-sm border border-slate-100">
-                    <div className="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
-                      <User className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4 bg-white p-1 pr-3 sm:pr-4 rounded-2xl shadow-sm border border-slate-100">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
+                      <User className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-400" />
                     </div>
                     <div className="hidden sm:flex flex-col">
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">প্রেমিয়াম মেম্বার</span>
-                      <span className="text-xs font-black text-slate-900 leading-none mt-1">{user.email.split('@')[0]}</span>
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">মেম্বার</span>
+                      <span className="text-[11px] font-black text-slate-900 leading-none mt-1 truncate max-w-[100px]">{user.email.split('@')[0]}</span>
                     </div>
-                    <div className="h-6 w-px bg-slate-100 mx-1" />
+                    <div className="h-5 w-px bg-slate-100 mx-1" />
                     <button 
                       onClick={handleLogout}
-                      className="text-slate-400 hover:text-red-500 transition-colors"
+                      className="text-slate-400 hover:text-red-500 transition-colors p-1"
                       title="লগআউট"
                     >
-                      <LogOut className="h-5 w-5" />
+                      <LogOut className="h-4 w-4 sm:h-5 sm:w-5" />
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
-                  <Link to="/login" className="px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest text-slate-600 hover:bg-slate-100 transition-all">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <Link to="/login" className="px-4 py-2.5 sm:px-6 sm:py-3 rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-600 hover:bg-slate-100 transition-all">
                     লগইন
                   </Link>
-                  <Link to="/signup" className="px-6 py-3 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl shadow-slate-900/20 hover:bg-black hover:-translate-y-1 transition-all">
+                  <Link to="/signup" className="px-4 py-2.5 sm:px-6 sm:py-3 bg-slate-900 text-white rounded-2xl text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-xl shadow-slate-900/20 hover:bg-black hover:-translate-y-1 transition-all">
                     সাইন আপ
                   </Link>
                 </div>
               )}
               <Link
                 to="/admin"
-                className="w-12 h-12 bg-white border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-2xl flex items-center justify-center transition-all shadow-sm"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-white border border-slate-100 hover:border-emerald-500/50 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0"
                 title="অ্যাডমিন পোর্টাল"
               >
-                <ShieldAlert className="h-6 w-6" />
+                <ShieldAlert className="h-5 w-5 sm:h-6 sm:w-6" />
               </Link>
             </div>
           </div>
@@ -164,57 +164,57 @@ function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="bg-slate-900 text-white py-20">
+      <footer className="bg-slate-900 text-white py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
-            <div className="md:col-span-2 space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 mb-12 sm:mb-16">
+            <div className="sm:col-span-2 space-y-6 sm:space-y-8">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20">
-                  <Smartphone className="h-6 w-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-emerald-500/20">
+                  <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-black text-2xl tracking-tighter leading-none">সহজ রিচার্জ</span>
-                  <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
+                  <span className="font-black text-xl sm:text-2xl tracking-tighter leading-none">সহজ রিচার্জ</span>
+                  <span className="text-[9px] sm:text-[10px] font-black text-emerald-400 uppercase tracking-widest leading-none mt-1">Shohoj Recharge</span>
                 </div>
               </div>
-              <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md">
-                সহজ রিচার্জ - বাংলাদেশের সব অপারেটরের জন্য দ্রুত এবং নিরাপদ মোবাইল রিচার্জ সেবা।
+              <p className="text-slate-400 text-base sm:text-lg font-medium leading-relaxed max-w-md">
+                সহজ রিচার্জ - বাংলাদেশের সব অপারেটরের জন্য দ্রুত এবং নিরাপদ মোবাইল রিচার্জ সেবা। আপনার প্রতিটি রিচার্জ হোক সহজ ও ঝামেলামুক্ত।
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 {[1, 2, 3].map((_, i) => (
-                  <div key={i} className="w-10 h-10 bg-white/5 rounded-xl border border-white/10 hover:border-emerald-500/50 hover:bg-white/10 transition-all cursor-pointer flex items-center justify-center">
-                    <ActivityIcon className="w-5 h-5 text-slate-500" />
+                  <div key={i} className="w-9 h-9 sm:w-10 sm:h-10 bg-white/5 rounded-xl border border-white/10 hover:border-emerald-500/50 hover:bg-white/10 transition-all cursor-pointer flex items-center justify-center">
+                    <ActivityIcon className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" />
                   </div>
                 ))}
               </div>
             </div>
-            <div className="space-y-6">
-              <h4 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">দ্রুত লিঙ্ক</h4>
-              <ul className="space-y-4 text-sm font-bold text-slate-400">
+            <div className="space-y-4 sm:space-y-6">
+              <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-emerald-400">দ্রুত লিঙ্ক</h4>
+              <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm font-bold text-slate-400">
                 <li><Link to="/" className="hover:text-white transition-colors">হোম পেজ</Link></li>
                 <li><Link to="/history" className="hover:text-white transition-colors">অর্ডার হিস্ট্রি</Link></li>
                 <li><Link to="/login" className="hover:text-white transition-colors">ইউজার লগইন</Link></li>
                 <li><Link to="/admin" className="hover:text-white transition-colors">অ্যাডমিন প্যানেল</Link></li>
               </ul>
             </div>
-            <div className="space-y-6">
-              <h4 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">সহযোগিতা</h4>
-              <p className="text-sm font-bold text-slate-400 leading-relaxed">যেকোনো সমস্যায় আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
-              <div className="pt-4">
+            <div className="space-y-4 sm:space-y-6">
+              <h4 className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-emerald-400">সহযোগিতা</h4>
+              <p className="text-xs sm:text-sm font-bold text-slate-400 leading-relaxed">যেকোনো সমস্যায় আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
+              <div className="pt-2 sm:pt-4">
                 <Button 
                   onClick={() => window.open('https://wa.me/8801924830869', '_blank')}
-                  className="w-full bg-white text-slate-900 hover:bg-emerald-500 hover:text-white rounded-2xl h-14 font-black text-xs uppercase tracking-widest transition-all"
+                  className="w-full bg-white text-slate-900 hover:bg-emerald-500 hover:text-white rounded-2xl h-12 sm:h-14 font-black text-[10px] sm:text-xs uppercase tracking-widest transition-all"
                 >
                   যোগাযোগ করুন
                 </Button>
               </div>
             </div>
           </div>
-          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+          <div className="pt-8 sm:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest text-center md:text-left">
               &copy; {new Date().getFullYear()} সহজ রিচার্জ বিডি। সর্বস্বত্ব সংরক্ষিত।
             </p>
-            <div className="flex gap-8 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+            <div className="flex gap-6 sm:gap-8 text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest">
               <Link to="#" className="hover:text-white transition-colors">শর্তাবলী</Link>
               <Link to="#" className="hover:text-white transition-colors">গোপনীয়তা নীতি</Link>
             </div>
