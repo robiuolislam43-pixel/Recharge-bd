@@ -281,7 +281,14 @@ export default function Home() {
                       <h3 className="text-lg font-black text-slate-900 uppercase tracking-widest">উপলব্ধ প্যাকেজসমূহ</h3>
                       {operator && (
                         <div className="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-100">
-                          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <div className="w-5 h-5 rounded-lg overflow-hidden border border-emerald-100 bg-white p-0.5">
+                            <img 
+                              src={OPERATOR_DATA[operator].logo} 
+                              alt={operator} 
+                              className="w-full h-full object-contain"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
                           <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{operator}</span>
                         </div>
                       )}
@@ -324,7 +331,17 @@ export default function Home() {
                                   <div className="flex items-center gap-2">
                                     <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest">{pkg.type}</span>
                                     <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                    <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{pkg.operator}</span>
+                                    <div className="flex items-center gap-1.5">
+                                      <div className="w-4 h-4 rounded-md overflow-hidden border border-slate-100 bg-white p-0.5">
+                                        <img 
+                                          src={OPERATOR_DATA[pkg.operator as Operator].logo} 
+                                          alt={pkg.operator} 
+                                          className="w-full h-full object-contain"
+                                          referrerPolicy="no-referrer"
+                                        />
+                                      </div>
+                                      <span className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">{pkg.operator}</span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

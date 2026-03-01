@@ -21,6 +21,7 @@ export interface Order {
   payment_method: PaymentMethod;
   transaction_id: string;
   status: OrderStatus;
+  rejection_reason?: string;
   created_at: string;
   packages?: Package; // For joined queries
 }

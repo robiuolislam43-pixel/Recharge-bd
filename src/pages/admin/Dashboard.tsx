@@ -114,11 +114,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleStatusUpdate = async (id: string, newStatus: 'completed' | 'rejected') => {
+  const handleStatusUpdate = async (id: string, newStatus: 'completed' | 'rejected', reason?: string) => {
     try {
+      const updateData: any = { status: newStatus };
+      if (reason) updateData.rejection_reason = reason;
+
       const { error } = await supabase
         .from('orders')
-        .update({ status: newStatus })
+        .update(updateData)
         .eq('id', id);
 
       if (error) throw error;
@@ -126,6 +129,220 @@ export default function AdminDashboard() {
       fetchOrders();
     } catch (error: any) {
       toast.error('স্ট্যাটাস আপডেট করতে সমস্যা হয়েছে: ' + error.message);
+    }
+  };
+
+  const handleReject = (id: string) => {
+    const reason = window.prompt('বাতিল করার কারণ লিখুন (ঐচ্ছিক):');
+    if (reason !== null) {
+      handleStatusUpdate(id, 'rejected', reason);
+    }
+  };
+
+  const toBengaliNumber = (num: number | string) => {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return num.toString().replace(/\d/g, (digit) => bengaliDigits[parseInt(digit)]);
+  };
+
+  const downloadOrderSlip = async (order: Order) => {
+    const loadingToast = toast.loading('স্লিপ তৈরি হচ্ছে...');
+    try {
+      const slipContainer = document.createElement('div');
+      slipContainer.style.position = 'absolute';
+      slipContainer.style.top = '-9999px';
+      slipContainer.style.left = '0';
+      slipContainer.style.width = '800px'; // A4 width proportion
+      slipContainer.style.backgroundColor = '#ffffff';
+      slipContainer.style.color = '#1e293b';
+      slipContainer.style.zIndex = '-1000';
+      
+      const statusText = order.status === 'completed' ? 'সফল' : order.status === 'pending' ? 'পেন্ডিং' : 'বাতিল';
+      const statusColor = order.status === 'completed' ? '#10b981' : order.status === 'pending' ? '#f59e0b' : '#ef4444';
+      const statusBg = order.status === 'completed' ? '#f0fdf4' : order.status === 'pending' ? '#fffbeb' : '#fef2f2';
+
+      slipContainer.innerHTML = `
+        <div style="font-family: 'Inter', 'Segoe UI', 'SolaimanLipi', sans-serif; width: 800px; min-height: 1131px; background: #ffffff; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+          <!-- Designer Background Elements -->
+          <div style="position: absolute; top: 0; right: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%); border-radius: 50%; filter: blur(60px); z-index: 0;"></div>
+          <div style="position: absolute; bottom: 0; left: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%); border-radius: 50%; filter: blur(60px); z-index: 0;"></div>
+          
+          <!-- Header Section with Modern Gradient -->
+          <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 60px; position: relative; z-index: 10; border-bottom: 8px solid #10b981;">
+            <div style="position: absolute; inset: 0; opacity: 0.05; background-image: url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\" fill-rule=\"evenodd\"%3E%3Ccircle cx=\"3\" cy=\"3\" r=\"3\"/%3E%3Ccircle cx=\"13\" cy=\"13\" r=\"3\"/%3E%3C/g%3E%3C/svg%3E');"></div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div style="display: flex; align-items: center; gap: 20px;">
+                <div style="width: 60px; height: 60px; background: #ffffff; border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                </div>
+                <div>
+                  <h1 style="font-size: 42px; font-weight: 900; color: #ffffff; margin: 0; letter-spacing: -1.5px;">সহজ রিচার্জ <span style="color: #10b981;">বিডি</span></h1>
+                  <p style="font-size: 12px; color: #10b981; font-weight: 800; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 3px;">Fast & Secure Digital Payment</p>
+                </div>
+              </div>
+              
+              <div style="text-align: right;">
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 15px 25px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                  <p style="font-size: 11px; font-weight: 800; color: #10b981; text-transform: uppercase; margin: 0; letter-spacing: 2px;">রিসিট নম্বর</p>
+                  <p style="font-size: 18px; font-weight: 900; color: #ffffff; margin: 5px 0 0 0; font-family: 'JetBrains Mono', monospace;">#SRB-${order.id.slice(0, 10).toUpperCase()}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+              <p style="font-size: 14px; color: #94a3b8; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 4px;">অফিসিয়াল পেমেন্ট রিসিট</p>
+            </div>
+          </div>
+
+          <div style="padding: 60px; position: relative; z-index: 10; flex-grow: 1;">
+            <!-- Top Info Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px;">
+              <div>
+                <p style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 2px; margin-bottom: 15px;">প্রাপকের বিবরণ</p>
+                <div style="background: #f8fafc; padding: 30px; border-radius: 24px; border: 1px solid #f1f5f9;">
+                  <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="width: 64px; height: 64px; background: #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    </div>
+                    <div>
+                      <p style="font-size: 28px; font-weight: 900; color: #0f172a; margin: 0; letter-spacing: -1px;">${order.mobile_number}</p>
+                      <p style="font-size: 14px; font-weight: 700; color: #10b981; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">${order.operator} নেটওয়ার্ক</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <p style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 2px; margin-bottom: 15px;">ইস্যু করার তথ্য</p>
+                <div style="background: #f8fafc; padding: 30px; border-radius: 24px; border: 1px solid #f1f5f9;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                    <p style="font-size: 13px; font-weight: 600; color: #94a3b8; margin: 0;">তারিখ:</p>
+                    <p style="font-size: 13px; font-weight: 800; color: #0f172a; margin: 0;">${new Date(order.created_at).toLocaleDateString('bn-BD')}</p>
+                  </div>
+                  <div style="display: flex; justify-content: space-between;">
+                    <p style="font-size: 13px; font-weight: 600; color: #94a3b8; margin: 0;">সময়:</p>
+                    <p style="font-size: 13px; font-weight: 800; color: #0f172a; margin: 0;">${new Date(order.created_at).toLocaleTimeString('bn-BD')}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transaction Details Table-like Layout -->
+            <div style="margin-bottom: 60px;">
+              <p style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 2px; margin-bottom: 20px;">লেনদেনের বিস্তারিত</p>
+              <div style="border: 1px solid #e2e8f0; border-radius: 24px; overflow: hidden;">
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; background: #f8fafc; padding: 20px 30px; border-bottom: 1px solid #e2e8f0;">
+                  <p style="font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 1px;">বিবরণ</p>
+                  <p style="font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 1px; text-align: center;">পদ্ধতি</p>
+                  <p style="font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; margin: 0; letter-spacing: 1px; text-align: right;">পরিমাণ</p>
+                </div>
+                <div style="padding: 30px; display: grid; grid-template-columns: 2fr 1fr 1fr; align-items: center;">
+                  <div>
+                    <p style="font-size: 18px; font-weight: 800; color: #0f172a; margin: 0;">${order.packages?.name || 'সাধারণ রিচার্জ'}</p>
+                    <p style="font-size: 13px; color: #94a3b8; margin: 8px 0 0 0;">ট্রানজেকশন আইডি: <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #64748b;">${order.transaction_id}</span></p>
+                  </div>
+                  <div style="text-align: center;">
+                    <span style="background: #eff6ff; color: #3b82f6; padding: 8px 16px; border-radius: 12px; font-size: 13px; font-weight: 800; text-transform: uppercase;">${order.payment_method}</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <p style="font-size: 24px; font-weight: 900; color: #0f172a; margin: 0;">৳${toBengaliNumber(order.amount)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prominent Total Amount Section -->
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px;">
+              <div style="background: ${statusBg}; padding: 40px; border-radius: 32px; border: 2px dashed ${statusColor}40; display: flex; align-items: center; gap: 25px;">
+                <div style="width: 60px; height: 60px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);">
+                  <div style="width: 12px; height: 12px; background: ${statusColor}; border-radius: 50%; box-shadow: 0 0 15px ${statusColor};"></div>
+                </div>
+                <div>
+                  <p style="font-size: 12px; font-weight: 800; color: ${statusColor}; text-transform: uppercase; margin: 0; letter-spacing: 3px;">লেনদেনের অবস্থা</p>
+                  <p style="font-size: 32px; font-weight: 900; color: ${statusColor}; margin: 5px 0 0 0; text-transform: uppercase;">${statusText}</p>
+                </div>
+              </div>
+              
+              <div style="background: #0f172a; padding: 40px; border-radius: 32px; color: #ffffff; text-align: center; position: relative; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.3); display: flex; flex-direction: column; justify-content: center; min-height: 180px;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);"></div>
+                <p style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin: 0; letter-spacing: 3px; position: relative; z-index: 1;">সর্বমোট পরিশোধিত</p>
+                <h2 style="font-size: 64px; font-weight: 900; color: #ffffff; margin: 10px 0 0 0; letter-spacing: -3px; position: relative; z-index: 1;"><span style="font-size: 32px; font-weight: 300; color: #10b981; margin-right: 5px;">৳</span>${toBengaliNumber(order.amount)}</h2>
+              </div>
+            </div>
+
+            ${order.rejection_reason ? `
+            <div style="background: #fef2f2; padding: 30px; border-radius: 24px; border: 1px solid #fee2e2; margin-bottom: 60px;">
+              <p style="font-size: 11px; font-weight: 800; color: #ef4444; text-transform: uppercase; margin: 0; letter-spacing: 2px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                বাতিলের কারণ
+              </p>
+              <p style="font-size: 16px; font-weight: 700; color: #991b1b; margin: 0; line-height: 1.5;">${order.rejection_reason}</p>
+            </div>
+            ` : ''}
+          </div>
+
+          <!-- Footer Section with Modern Branding -->
+          <div style="padding: 60px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+              <p style="font-size: 24px; font-weight: 900; color: #0f172a; margin: 0; letter-spacing: -0.5px;">সহজ রিচার্জ বিডি</p>
+              <p style="font-size: 14px; color: #64748b; margin: 10px 0 0 0; max-width: 400px; line-height: 1.6;">এই রিসিটটি ডিজিটালভাবে জেনারেট করা হয়েছে এবং এটি আপনার পেমেন্টের একটি বৈধ প্রমাণ। কোনো জিজ্ঞাসার জন্য আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
+              <div style="margin-top: 30px; display: flex; gap: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 32px; height: 32px; background: #ffffff; border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e8f0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </div>
+                  <p style="font-size: 13px; font-weight: 700; color: #0f172a; margin: 0;">+৮৮০ ১৭০০-০০০০০০</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 32px; height: 32px; background: #ffffff; border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e8f0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  </div>
+                  <p style="font-size: 13px; font-weight: 700; color: #0f172a; margin: 0;">www.shohojrecharge.com</p>
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: center;">
+              <div style="width: 140px; height: 140px; background: #ffffff; border-radius: 24px; padding: 15px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);">
+                <div style="width: 100%; height: 100%; background: #0f172a; opacity: 0.05; border-radius: 12px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 8px;">
+                  ${Array(36).fill(0).map(() => `<div style="background: #0f172a; opacity: ${Math.random() > 0.3 ? 0.8 : 0.1}; border-radius: 2px;"></div>`).join('')}
+                </div>
+                <p style="font-size: 10px; font-weight: 800; color: #94a3b8; margin: 0; text-transform: uppercase; letter-spacing: 1px;">যাচাইকৃত রিসিট</p>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #0f172a; padding: 20px; text-align: center;">
+            <p style="font-size: 10px; font-weight: 700; color: #64748b; margin: 0; text-transform: uppercase; letter-spacing: 5px;">© ${new Date().getFullYear()} সহজ রিচার্জ বিডি • নিরাপদ ও দ্রুত ডিজিটাল পেমেন্ট</p>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(slipContainer);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const canvas = await html2canvas(slipContainer, {
+        scale: 3, // High resolution
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false
+      });
+      
+      const containerHeight = canvas.height;
+      const containerWidth = canvas.width;
+      const pdfWidth = 210; // A4 width in mm
+      const pdfHeight = (containerHeight * pdfWidth) / containerWidth;
+
+      document.body.removeChild(slipContainer);
+      
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Designer-Receipt-${order.mobile_number}-${order.id.slice(0, 8)}.pdf`);
+      toast.success('ডিজাইনার স্লিপ ডাউনলোড সফল হয়েছে', { id: loadingToast });
+    } catch (error) {
+      console.error('PDF Error:', error);
+      toast.error('স্লিপ তৈরি করতে সমস্যা হয়েছে।', { id: loadingToast });
     }
   };
 
@@ -502,28 +719,37 @@ export default function AdminDashboard() {
                           {getStatusBadge(order.status)}
                         </td>
                         <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-right">
-                          {order.status === 'pending' ? (
-                            <div className="flex justify-end gap-1.5 sm:gap-2">
+                          <div className="flex justify-end gap-1.5 sm:gap-2">
+                            {order.status === 'pending' ? (
+                              <>
+                                <Button 
+                                  size="sm" 
+                                  variant="success" 
+                                  onClick={() => handleStatusUpdate(order.id, 'completed')}
+                                  className="rounded-lg font-black text-[10px] sm:text-xs px-2 sm:px-4 h-8 sm:h-9"
+                                >
+                                  সফল
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="danger" 
+                                  onClick={() => handleReject(order.id)}
+                                  className="rounded-lg font-black text-[10px] sm:text-xs px-2 sm:px-4 h-8 sm:h-9"
+                                >
+                                  বাতিল
+                                </Button>
+                              </>
+                            ) : (
                               <Button 
                                 size="sm" 
-                                variant="success" 
-                                onClick={() => handleStatusUpdate(order.id, 'completed')}
-                                className="rounded-lg font-black text-[10px] sm:text-xs px-2 sm:px-4 h-8 sm:h-9"
+                                variant="outline" 
+                                onClick={() => downloadOrderSlip(order)}
+                                className="rounded-lg font-black text-[10px] sm:text-xs px-2 sm:px-4 h-8 sm:h-9 border-2 flex items-center gap-1.5"
                               >
-                                সফল
+                                <Download className="w-3 h-3" /> স্লিপ
                               </Button>
-                              <Button 
-                                size="sm" 
-                                variant="danger" 
-                                onClick={() => handleStatusUpdate(order.id, 'rejected')}
-                                className="rounded-lg font-black text-[10px] sm:text-xs px-2 sm:px-4 h-8 sm:h-9"
-                              >
-                                বাতিল
-                              </Button>
-                            </div>
-                          ) : (
-                            <span className="text-[8px] sm:text-[10px] font-black text-slate-300 uppercase tracking-widest">সম্পন্ন</span>
-                          )}
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))

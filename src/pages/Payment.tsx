@@ -287,10 +287,22 @@ export default function Payment() {
                 ].map((item, i) => (
                   <div key={i} className="flex justify-between items-center">
                     <span className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest">{item.label}</span>
-                    <span className={cn(
-                      "font-black text-xs sm:text-sm uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl",
+                    <div className={cn(
+                      "flex items-center gap-2 font-black text-xs sm:text-sm uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl",
                       item.highlight ? "text-emerald-400 bg-emerald-500/10" : "text-white bg-white/5"
-                    )}>{item.value}</span>
+                    )}>
+                      {item.label === 'অপারেটর' && (
+                        <div className="w-4 h-4 rounded-md overflow-hidden bg-white p-0.5">
+                          <img 
+                            src={OPERATOR_DATA[state.operator as Operator]?.logo} 
+                            alt={state.operator} 
+                            className="w-full h-full object-contain"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      )}
+                      {item.value}
+                    </div>
                   </div>
                 ))}
               </div>

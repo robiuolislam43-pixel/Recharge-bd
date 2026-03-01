@@ -10,7 +10,7 @@ export const OPERATOR_DATA: Record<Operator, { name: string; logo: string; color
   },
   'Robi': { 
     name: 'Robi',
-    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2cd89-9486-455b-8086-64673898687a',
+    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2db1b-213c-497d-9806-64673898687a',
     color: 'text-[#E21F26]',
     bg: 'bg-[#E21F26]',
     brandColor: '#E21F26'
@@ -24,7 +24,7 @@ export const OPERATOR_DATA: Record<Operator, { name: string; logo: string; color
   },
   'Banglalink': { 
     name: 'Banglalink',
-    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2cd8a-874c-4786-9806-64673898687a',
+    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2ed6a-213c-497d-9806-64673898687a',
     color: 'text-[#F37021]',
     bg: 'bg-[#F37021]',
     brandColor: '#F37021'
@@ -38,7 +38,7 @@ export const OPERATOR_DATA: Record<Operator, { name: string; logo: string; color
   },
   ['Robi/Airtel' as any]: { 
     name: 'Robi/Airtel',
-    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2cd89-9486-455b-8086-64673898687a',
+    logo: 'https://ais-pre-fnfsghjjan77r3umaolc6z-49638028205.asia-east1.run.app/api/files/67c2db1b-213c-497d-9806-64673898687a',
     color: 'text-[#E21F26]',
     bg: 'bg-[#E21F26]',
     brandColor: '#E21F26'
