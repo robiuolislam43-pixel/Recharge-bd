@@ -1,4 +1,4 @@
-export type Operator = 'Grameenphone' | 'Robi/Airtel' | 'Banglalink' | 'Teletalk';
+export type Operator = 'Grameenphone' | 'Robi' | 'Airtel' | 'Banglalink' | 'Teletalk';
 export type RechargeType = 'Regular' | 'Internet' | 'Minute' | 'Bundle';
 export type PaymentMethod = 'bKash' | 'Nagad' | 'Rocket';
 export type OrderStatus = 'pending' | 'completed' | 'rejected';

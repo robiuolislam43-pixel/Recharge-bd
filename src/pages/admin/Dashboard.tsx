@@ -476,10 +476,7 @@ export default function AdminDashboard() {
                                 src={OPERATOR_DATA[order.operator as Operator]?.logo} 
                                 alt={order.operator} 
                                 className="w-full h-full object-contain"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = 'none';
-                                  (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-[10px] sm:text-xs font-black text-emerald-600">${order.operator[0]}</span>`;
-                                }}
+                                referrerPolicy="no-referrer"
                               />
                             </div>
                             <div>

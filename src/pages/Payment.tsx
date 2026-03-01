@@ -270,10 +270,7 @@ export default function Payment() {
                     src={OPERATOR_DATA[state.operator as Operator]?.logo} 
                     alt={state.operator} 
                     className="w-full h-full object-contain"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xl sm:text-2xl font-black text-emerald-600">${state.operator[0]}</span>`;
-                    }}
+                    referrerPolicy="no-referrer"
                   />
                 </div>
                 <div>

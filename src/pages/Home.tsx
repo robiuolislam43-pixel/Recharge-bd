@@ -191,10 +191,7 @@ export default function Home() {
                           src={OPERATOR_DATA[operator].logo} 
                           alt={operator} 
                           className="w-full h-full object-contain"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-[10px] sm:text-xs font-black text-emerald-600">${operator[0]}</span>`;
-                          }}
+                          referrerPolicy="no-referrer"
                         />
                       </div>
                     </motion.div>
@@ -405,10 +402,7 @@ export default function Home() {
                         src={OPERATOR_DATA[op].logo} 
                         alt={op} 
                         className="w-full h-full object-contain"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-xs font-black text-emerald-600">${op[0]}</span>`;
-                        }}
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                     <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">{OPERATOR_DATA[op].name || op}</span>
